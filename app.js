@@ -19,18 +19,23 @@ const instance = basicLightbox.create(`
   </div>
 `);
 
+
+
 const modal = instance.element();
+
+
 
 const bookArray = JSON.parse(localStorage.getItem("information")) || [];
 renderArray();
 
+
 btnRef.addEventListener("click", (event) => {
   event.preventDefault();
-
   const nameValue = inputName.value.trim();
   const surnameValue = inputSurname.value.trim();
   const phoneValue = inputPhone.value.trim();
   const emailValue = inputEmail.value.trim();
+
 
   if (nameValue && surnameValue && phoneValue && emailValue) {
     bookArray.push({
@@ -39,15 +44,15 @@ btnRef.addEventListener("click", (event) => {
       phone: phoneValue,
       email: emailValue,
     });
-
     inputName.value = "";
     inputSurname.value = "";
     inputPhone.value = "";
     inputEmail.value = "";
-
     renderArray();
   }
 });
+
+
 
 function renderArray() {
   const item = bookArray
@@ -66,6 +71,8 @@ function renderArray() {
   listRef.innerHTML = item;
 }
 
+
+
 listRef.addEventListener("click", (event) => {
   const target = event.target.nodeName;
   const index = event.target.dataset.action;
@@ -76,13 +83,14 @@ listRef.addEventListener("click", (event) => {
     modal.querySelector(".surname").value = contact.surname;
     modal.querySelector(".phone").value = contact.phone;
     modal.querySelector(".email").value = contact.email;
-
     modal.querySelector(".save").addEventListener("click", (event) => {
       event.preventDefault();
       const modalName = modal.querySelector(".name").value;
       const modalSurname = modal.querySelector(".surname").value;
       const modalPhone = modal.querySelector(".phone").value;
       const modalEmail = modal.querySelector(".email").value;
+
+
 
       if (modalName && modalSurname && modalPhone && modalEmail) {
         bookArray[index] = {
@@ -96,6 +104,8 @@ listRef.addEventListener("click", (event) => {
       }
     });
   }
+
+
   if (target !== "A") {
     return;
   } else {
@@ -103,6 +113,8 @@ listRef.addEventListener("click", (event) => {
     renderArray();
   }
 });
+
+
 
 modal.addEventListener("click", (event) => {
   const target = event.target.nodeName;
